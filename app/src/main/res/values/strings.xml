@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">InventoryApp</string>
+    <string name="product_name">Product Name</string>
+    <string name="iphone">Iphone</string>
+    <string name="price">Price</string>
+    <string name="iphone_price">500 $</string>
+    <string name="quantity">Quantity</string>
+    <string name="iphone_quantity">15</string>
+    <string name="supplier">Supplier</string>
+    <string name="apple">Apple</string>
+    <string name="supplier_phone_number">Supplier Phone Number</string>
+    <string name="iphone_phone">+123456</string>
+    <string name="no_data">No data</string>
+</resources>
