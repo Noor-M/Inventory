@@ -203,9 +203,9 @@ public class InventoryProvider extends ContentProvider {
 
 
 
-        Integer supplierName = values.getAsInteger(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
-        if (supplierName == null || supplierName<0) {
-            throw new IllegalArgumentException("Pet requires valid gender");
+        String supplierName = values.getAsString(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
+        if (supplierName == null) {
+            throw new IllegalArgumentException("supplier name required");
         }
 
         Integer supplierPhone = values.getAsInteger(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER);

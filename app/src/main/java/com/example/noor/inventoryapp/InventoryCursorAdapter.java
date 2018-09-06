@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
@@ -12,14 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.noor.inventoryapp.data.InventoryContract;
 
 public class InventoryCursorAdapter extends CursorAdapter {
-    private static final String TAG = "InventoryCursorAdapter";
+    private static final String TAG = "InventoryCursorAdapter1";
 
     public InventoryCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
@@ -35,12 +35,13 @@ public class InventoryCursorAdapter extends CursorAdapter {
     public void bindView(View view, final Context context, Cursor cursor) {
         final TextView productName = view.findViewById(R.id.name_tv);
         TextView productQuantity = view.findViewById(R.id.quantity_tv);
-        TextView productPrice =  view.findViewById(R.id.price_tv);
+        TextView productPrice = view.findViewById(R.id.price_tv);
         TextView supplier_name = view.findViewById(R.id.supplier_name_tv);
         TextView supplierPhoneNumber = view.findViewById(R.id.supplier_phone_number_tv);
 
-        Button saleBtn = view.findViewById( R.id.sale);
+        Button saleBtn = view.findViewById(R.id.sale);
         Button editBtn = view.findViewById(R.id.edit);
+        Button showBtn = view.findViewById(R.id.show);
 
 
         int nameColumnIndex = cursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_PRODUCT_NAME);
@@ -50,12 +51,16 @@ public class InventoryCursorAdapter extends CursorAdapter {
         int supplierPhoneNumberColumnIndex = cursor.getColumnIndex(InventoryContract.InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER);
 
         int id = cursor.getInt(cursor.getColumnIndex(InventoryContract.InventoryEntry._ID));
+        final String productId = cursor.getString(cursor.getColumnIndex(InventoryContract.InventoryEntry._ID));
 
         final String productNameStr = cursor.getString(nameColumnIndex);
-        String priceStr  = cursor.getInt(priceColumnIndex) + "$";
+        String priceStr = cursor.getInt(priceColumnIndex) + context.getString(R.string.dollar);
         final int quantityInt = cursor.getInt(quantityColumnIndex);
         String supplierNameStr = cursor.getString(supplierNameColumnIndex);
-        int supplierPhoneInt = cursor.getInt(supplierPhoneNumberColumnIndex);
+        int supplierPhoneNumberInt = cursor.getInt(supplierPhoneNumberColumnIndex);
+
+        String quantityStr = String.valueOf(quantityInt);
+        String supplierPhoneNumberStr = String.valueOf(supplierPhoneNumberInt);
 
 
         final Uri currentProductUri = ContentUris.withAppendedId(InventoryContract.InventoryEntry.CONTENT_URI, id);
@@ -64,9 +69,9 @@ public class InventoryCursorAdapter extends CursorAdapter {
 
         productName.setText(productNameStr);
         productPrice.setText(priceStr);
-        productQuantity.setText(quantityInt);
+        productQuantity.setText(quantityStr);
         supplier_name.setText(supplierNameStr);
-        supplierPhoneNumber.setText(supplierPhoneInt);
+        supplierPhoneNumber.setText(supplierPhoneNumberStr);
 
 
         saleBtn.setOnClickListener(new View.OnClickListener() {
@@ -88,8 +93,29 @@ public class InventoryCursorAdapter extends CursorAdapter {
                     );
                     context.getContentResolver().notifyChange(currentProductUri, null);
                 } else {
-                    Toast.makeText(context, "Item out of stock", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.out_of_stock, Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        showBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DetailActivity.class);
+                Uri currentProductUri = ContentUris.withAppendedId(InventoryContract.InventoryEntry.CONTENT_URI, Long.parseLong(productId));
+                intent.setData(currentProductUri);
+                context.startActivity(intent);
+
+            }
+        });
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), InsertionActivity.class);
+                Uri currentUri = ContentUris.withAppendedId(InventoryContract.InventoryEntry.CONTENT_URI, Long.parseLong(productId));
+                intent.setData(currentUri);
+                context.startActivity(intent);
             }
         });
 

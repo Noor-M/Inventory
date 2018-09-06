@@ -1,14 +1,33 @@
 <resources>
     <string name="app_name">InventoryApp</string>
-    <string name="product_name">Product Name</string>
     <string name="iphone">Iphone</string>
-    <string name="price">Price</string>
     <string name="iphone_price">500 $</string>
-    <string name="quantity">Quantity</string>
     <string name="iphone_quantity">15</string>
     <string name="supplier">Supplier</string>
     <string name="apple">Apple</string>
-    <string name="supplier_phone_number">Supplier Phone Number</string>
     <string name="iphone_phone">+123456</string>
     <string name="no_data">No data</string>
+    <string name="show">show</string>
+    <string name="edit">edit</string>
+    <string name="sale">sale</string>
+    <string name="delete">delete</string>
+    <string name="call">call</string>
+    <string name="supplier_phone_number">Supplier Phone Number</string>
+    <string name="supplier_name">Supplier Name</string>
+    <string name="price">Price</string>
+    <string name="sub">-</string>
+    <string name="add">+</string>
+    <string name="quantity">Quantity</string>
+    <string name="product_name">Product Name</string>
+    <string name="quantity_changed">quantity has changed</string>
+    <string name="out_of_stock">item out of stock</string>
+    <string name="added">added</string>
+    <string name="fail">Fail</string>
+    <string name="done">done</string>
+    <string name="dialog_text">Are you sure that you want to delete this from the inventory?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="fill_out">fill out all fields</string>
+    <string name="dollar">$</string>
+    <string name="save">Save</string>
 </resources>
